@@ -61,10 +61,16 @@ This config could be used to deploy it with mariadb and nginx on Docker:
 
 An nginx configuration file could be as simple as this:
 
-    server {
-        server_name crashhub.bauerj.eu;
-        location / {
-            include uwsgi_params;
-            uwsgi_pass crashhub:3031;
+    events {
+        worker_connection 1024;
+    }
+
+    http {
+        server {
+            server_name crashhub.bauerj.eu;
+            location / {
+                include uwsgi_params;
+                uwsgi_pass crashhub:3031;
+            }
         }
     }
