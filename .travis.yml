@@ -2,10 +2,17 @@ sudo: false
 language: python
 python:
   - 3.6
+addons:
+  - mariadb
+services:
+  - postgresql
 install:
   - python setup.py install
   - pip install pytest pytest-cov pytest-xdist coveralls pytest-mock
+before_script:
+  - psql -c 'CREATE DATABASE crashhub;' -U postgres
+  - mysql -e 'CREATE DATABASE crashhub;'
 script:
   - pytest -n 4 --cov=lib
-after_success:
-  - coveralls
+#after_success:
+#  - coveralls

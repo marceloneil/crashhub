@@ -60,3 +60,6 @@ __pycache__
 crashhub.egg-info/
 build
 dist
+
+.coverage
+.pytest_cache/
