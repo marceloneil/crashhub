@@ -6,9 +6,10 @@ addons:
   - mariadb
 services:
   - postgresql
+  - mysql
 install:
   - python setup.py install
-  - pip install pytest pytest-cov pytest-xdist coveralls pytest-mock psycopg2
+  - pip install pytest pytest-cov pytest-xdist coveralls pytest-mock psycopg2-binary
 before_script:
   - psql -c 'CREATE DATABASE crashhub;' -U postgres
   - mysql -e 'CREATE DATABASE crashhub;'
