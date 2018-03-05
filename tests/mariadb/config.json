@@ -1,7 +1,7 @@
 {
     "github_project": "bauerj/beam",
     "github_token": "123",
-    "db_engine": "mariadb",
+    "db_engine": "mysql",
     "db_name": "crashhub",
     "db_host": "",
     "db_port": "3306",
