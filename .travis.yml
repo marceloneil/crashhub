@@ -8,7 +8,7 @@ services:
   - postgresql
 install:
   - python setup.py install
-  - pip install pytest pytest-cov pytest-xdist coveralls pytest-mock
+  - pip install pytest pytest-cov pytest-xdist coveralls pytest-mock psycopg2
 before_script:
   - psql -c 'CREATE DATABASE crashhub;' -U postgres
   - mysql -e 'CREATE DATABASE crashhub;'
