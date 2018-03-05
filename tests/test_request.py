@@ -9,12 +9,14 @@ os.chdir(test_dir)
 @pytest.fixture(params=["sqlite", "postgres", "mariadb"])
 def crashhub_client(tmpdir, mocker, request):
     mocker.patch("github.Github")
+
     os.chdir(test_dir + "/" + request.param)
     mocker.patch("lib.config.read_config")
     os.chdir(test_dir)
 
-    from lib import config
-    config.config["db_name"] = "{}/db.sqlite3".format(tmpdir)
+    if request.param == "sqlite":
+        from lib import config
+        config.config["db_name"] = "{}/db.sqlite3".format(tmpdir)
 
     from crashhub import app
     from lib import database
