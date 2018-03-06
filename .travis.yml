@@ -14,7 +14,7 @@ before_script:
   - psql -c 'CREATE DATABASE crashhub;' -U postgres
   - mysql -e 'CREATE DATABASE crashhub;'
 script:
-  - pytest -n 4 --cov=lib -v --db mariadb --db postgres --tb=long
+  - pytest -n 4 --cov=lib --db mariadb --db postgres
 after_script:
   - mysql -e "use crashhub; select * from crash;"
 #after_success:
