@@ -14,6 +14,6 @@ before_script:
   - psql -c 'CREATE DATABASE crashhub;' -U postgres
   - mysql -e 'CREATE DATABASE crashhub;'
 script:
-  - pytest -n 4 --cov=lib --db postgres
+  - pytest -n 4 -v --cov=lib --db postgres
 #after_success:
 #  - coveralls
