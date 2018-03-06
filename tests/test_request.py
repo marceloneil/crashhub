@@ -39,14 +39,18 @@ request2 = r"""
 def test_create(crashhub_client):
     response = crashhub_client.post("/crash", data=request)
     assert b"You can track further progress on" in response.data
+    print(github.Github.return_value.get_repo.return_value.create_issue.call_count)
     github.Github.return_value.get_repo.return_value.create_issue.assert_called_once()
     github.Github.return_value.get_repo.return_value.get_issue.assert_not_called()
+    assert False
 
 def test_updated(crashhub_client):
     for _ in range(2):
         response = crashhub_client.post("/crash", data=request2)
+    print(github.Github.return_value.get_repo.return_value.create_issue.call_count)
     github.Github.return_value.get_repo.return_value.get_issue.assert_called_once()
     github.Github.return_value.get_repo.return_value.create_issue.assert_called_once()
+    assert False
 
 def test_rate_limit(crashhub_client):
     for _ in range(5):
