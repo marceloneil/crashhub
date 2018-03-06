@@ -25,10 +25,6 @@ def crashhub_client(tmpdir, mocker, request):
     mocker.patch("lib.config.read_config")
     os.chdir(ROOT_DIR)
 
-    with open('test', 'w') as f:
-        data = f.read()
-        f.write(data, request.param)
-
     if request.param == "sqlite":
         from lib import config
         config.config["db_name"] = "{}/db.sqlite3".format(tmpdir)
