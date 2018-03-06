@@ -15,7 +15,5 @@ before_script:
   - mysql -e 'CREATE DATABASE crashhub;'
 script:
   - pytest -n 4 --cov=lib --db postgres
-after_script:
-  - mysql -e "use crashhub; select * from crash;"
 #after_success:
 #  - coveralls
