@@ -7,7 +7,8 @@ def pytest_addoption(parser):
     parser.addoption(
         '--db',
         action='append',
-        default=['sqlite'],
+        #default=['sqlite'],
+        default=[],
         help='comma seperated databases to test'
     )
 
