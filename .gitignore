@@ -61,5 +61,5 @@ crashhub.egg-info/
 build
 dist
 
-.coverage
+.coverage*
 .pytest_cache/

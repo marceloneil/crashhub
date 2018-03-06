@@ -2,32 +2,6 @@ import github
 import os
 import pytest
 
-test_dir = os.path.dirname(__file__)
-os.chdir(test_dir)
-
-
-@pytest.fixture(params=["sqlite", "postgres", "mariadb"])
-def crashhub_client(tmpdir, mocker, request):
-    mocker.patch("github.Github")
-
-    os.chdir(test_dir + "/" + request.param)
-    mocker.patch("lib.config.read_config")
-    os.chdir(test_dir)
-
-    if request.param == "sqlite":
-        from lib import config
-        config.config["db_name"] = "{}/db.sqlite3".format(tmpdir)
-
-    from crashhub import app
-    from lib import database
-    app.testing = True
-    client = app.test_client()
-    with app.app_context():
-        database.create_tables()
-
-    return client
-
-
 request = r"""
 {
     "app_version": "b'3.0.3-367-g3838fdb'3.1", 
