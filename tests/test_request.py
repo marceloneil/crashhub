@@ -46,6 +46,7 @@ def test_first(crashhub_client):
 def test_updated(crashhub_client):
     for _ in range(2):
         response = crashhub_client.post("/crash", data=request2)
+    print(github.Github.return_value.get_repo.return_value.create_issue.call_count)
     github.Github.return_value.get_repo.return_value.create_issue.assert_called_once()
     github.Github.return_value.get_repo.return_value.get_issue.assert_called_once()
 
