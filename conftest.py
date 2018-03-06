@@ -14,8 +14,6 @@ def pytest_addoption(parser):
 def pytest_generate_tests(metafunc):
     if 'crashhub_client' in metafunc.fixturenames:
         dbs = metafunc.config.getoption('db')
-        with open('test', 'w') as f:
-            f.write(','.join(dbs))
         metafunc.parametrize('crashhub_client', dbs, indirect=True)
 
 

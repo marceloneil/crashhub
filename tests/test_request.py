@@ -19,6 +19,22 @@ request = r"""
 }
 """
 
+request2 = r"""
+{
+  "exc_string": "'str' object cannot be interpreted as an integer",
+  "stack": "  File \"/home/marcel/workspace/electrum/gui/qt/main_window.py\", line 2136, in <lambda>\n    b.clicked.connect(lambda: self.do_encrypt(message_e, pubkey_e, encrypted_e))\n  File \"/home/marcel/workspace/electrum/gui/qt/main_window.py\", line 2099, in do_encrypt\n    hex('error')\n",
+  "id": {
+    "file": "/home/marcel/workspace/electrum/gui/qt/main_window.py",
+    "name": "do_encrypt",
+    "type": "TypeError"
+  },
+  "app_version": "3.1.5",
+  "os": "Linux-4.15.6-1-ARCH-x86_64-with-arch-Arch-Linux",
+  "wallet_type": "standard",
+  "locale": "en_US",
+  "description": "Test description"
+}
+"""
 
 def test_first(crashhub_client):
     response = crashhub_client.post("/crash", data=request)
@@ -29,7 +45,7 @@ def test_first(crashhub_client):
 
 def test_updated(crashhub_client):
     for _ in range(2):
-        response = crashhub_client.post("/crash", data=request)
+        response = crashhub_client.post("/crash", data=request2)
     github.Github.return_value.get_repo.return_value.create_issue.assert_called_once()
     github.Github.return_value.get_repo.return_value.get_issue.assert_called_once()
 
