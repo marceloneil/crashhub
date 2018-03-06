@@ -21,7 +21,7 @@ def pytest_generate_tests(metafunc):
 def crashhub_client(tmpdir, mocker, request):
     mocker.patch("github.Github")
 
-    os.chdir(ROOT_DIR + "/tests/" + request.param)
+    os.chdir("{}/tests/{}".format(ROOT_DIR, request.param))
     mocker.patch("lib.config.read_config")
     os.chdir(ROOT_DIR)
 
