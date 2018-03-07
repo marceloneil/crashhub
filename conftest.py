@@ -17,7 +17,7 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize('crashhub_client', dbs, indirect=True)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def crashhub_client(tmpdir, mocker, request):
     mocker.patch("github.Github")
 
