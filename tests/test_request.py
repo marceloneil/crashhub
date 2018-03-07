@@ -36,7 +36,7 @@ request2 = r"""
 }
 """
 
-def test_create(crashhub_client):
+def test_create(crashhub_client, smtp):
     response = crashhub_client.post("/crash", data=request)
     assert b"You can track further progress on" in response.data
     github.Github.return_value.get_repo.return_value.create_issue.assert_called_once()
@@ -44,7 +44,7 @@ def test_create(crashhub_client):
     print(hex(id(crashhub_client)))
     assert 0
 
-def test_updated(crashhub_client):
+def test_updated(crashhub_client, smtp):
     for _ in range(2):
         response = crashhub_client.post("/crash", data=request2)
     github.Github.return_value.get_repo.return_value.create_issue.assert_called_once()
@@ -52,7 +52,7 @@ def test_updated(crashhub_client):
     print(hex(id(crashhub_client)))
     assert 0
 
-def test_rate_limit(crashhub_client):
+def test_rate_limit(crashhub_client, smtp):
     for _ in range(5):
         response = crashhub_client.post("/crash", data=request)
     assert b"You can track further progress on" not in response.data

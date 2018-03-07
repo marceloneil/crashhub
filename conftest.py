@@ -1,5 +1,7 @@
 import os
 import pytest
+import smtplib
+import ctypes
 
 ROOT_DIR = os.path.dirname(__file__)
 
@@ -17,7 +19,7 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize('crashhub_client', dbs, indirect=True)
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def crashhub_client(tmpdir, mocker, request):
     mocker.patch("github.Github")
 
@@ -37,3 +39,7 @@ def crashhub_client(tmpdir, mocker, request):
         database.create_tables()
 
     return client
+
+@pytest.fixture(scope="session")
+def smtp():
+    return smtplib.SMTP("smtp.gmail.com", 587, timeout=5)
